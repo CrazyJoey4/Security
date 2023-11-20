@@ -15,7 +15,7 @@
 	
 	class Connect
 	{
-		public $base_url = 'http://localhost:8080/Final/';
+		public $base_url = 'http://localhost:8080/Security';
 		public $connect;
 		public $query;
 		public $statement;
