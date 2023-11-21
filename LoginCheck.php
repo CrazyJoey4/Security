@@ -5,21 +5,38 @@ session_start();
 $object = new Connect();
 
 if (isset($_POST["Sign"])) {
-	$Id = $_POST['User_ID'];
-	$password = $_POST['User_pwd'];
+	$USER_id = $_POST['User_ID'];
+	$USER_pwd = $_POST['User_pwd'];
 
-	$query = mysqli_query($connected, "select * from user_table where User_ID = '$Id' && User_pwd = '$password'");
+	$query = "SELECT * FROM user_table WHERE User_ID = ?";
+    $statement = mysqli_prepare($connected, $query);
 
-	if (mysqli_num_rows($query) == 0) {
-		$_SESSION['message'] = "Login failed. Try again.";
-		header("location:index.php?st=WrongPassword");
-	} else {
-		$row = mysqli_fetch_array($query);
-		$_SESSION['User_ID'] = $row['User_ID'];
-		$DATETIME = $object->get_datetime();
+    if ($statement) {
+        mysqli_stmt_bind_param($statement, "s", $USER_id);
+        mysqli_stmt_execute($statement);
 
-		mysqli_query($connected, "INSERT INTO `attendance_table` (`Staff_ID`, `LoginTime`) VALUES ('$Id', '$DATETIME');");
-		header("location:Dashboard.php");
-	}
+        $result = mysqli_stmt_get_result($statement);
+
+        // Check if a row exists for the given User_ID
+        if ($row = mysqli_fetch_assoc($result)) {
+            // Verify the entered password against the hashed password in the database
+            if (password_verify($USER_pwd, $row['User_pwd'])) {
+                $_SESSION['User_ID'] = $row['User_ID'];
+                $DATETIME = $object->get_datetime();
+
+                mysqli_query($connected, "INSERT INTO `attendance_table` (`Staff_ID`, `LoginTime`) VALUES ('".$_SESSION['User_ID']."', '$DATETIME');");
+                header("location:Dashboard.php");
+            } else {
+                $_SESSION['message'] = "Login failed. Please check your ID and password.";
+                header("location:index.php?st=failure");
+            }
+        } else {
+            $_SESSION['message'] = "Login failed. User not found.";
+            header("location:index.php?st=failure");
+        }
+
+        // Close the statement
+        mysqli_stmt_close($statement);
+    }
 }
 ?>

@@ -9,8 +9,8 @@ if (isset($_POST["Category_name"])) {
 	$CATEGORY_status = $_POST['Category_status'];
 
 	$query = "INSERT INTO `category_table`
-		(`Category_name`, `Category_status`) 
-		VALUES (?, ?)";
+			(`Category_name`, `Category_status`) 
+			VALUES (?, ?)";
 	$statement = mysqli_prepare($connected, $query);
 
 	// Check if the prepared statement is successfully created
