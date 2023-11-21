@@ -13,6 +13,7 @@ if (isset($_POST["Category_name"])) {
 		VALUES (?, ?)";
 	$statement = mysqli_prepare($connected, $query);
 
+	// Check if the prepared statement is successfully created
 	if ($statement) {
 		mysqli_stmt_bind_param($statement, "ss", $CATEGORY_name, $CATEGORY_status);
 
@@ -25,6 +26,7 @@ if (isset($_POST["Category_name"])) {
 			header("location:Category.php?st=failure");
 		}
 
+		// Close the prepared statement
 		mysqli_stmt_close($statement);
 	} else {
 		//echo "Error in preparing the statement: " . mysqli_error($connected);

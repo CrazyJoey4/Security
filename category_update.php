@@ -15,7 +15,9 @@ if (isset($_POST['ID'])) {
 			WHERE `ID` = ?";
 	$statement = mysqli_prepare($connected, $query);
 
+	// Check if the prepared statement is successfully updated
 	if ($statement) {
+		// Check the number of affected rows after the update operation
 		mysqli_stmt_bind_param($statement, "ssi", $CATEGORY_name, $CATEGORY_status, $ID);
 
 		// Execute the statement
@@ -35,6 +37,7 @@ if (isset($_POST['ID'])) {
 			header("location:Category.php?st=failure");
 		}
 
+		// Close the prepared statement
 		mysqli_stmt_close($statement);
 	} else {
 		// echo "Error in preparing the statement: " . mysqli_error($connected);

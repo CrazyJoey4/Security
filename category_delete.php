@@ -9,11 +9,13 @@ if (isset($_GET['id'])) {
 	$query = "DELETE FROM category_table WHERE ID = ?";
 	$statement = mysqli_prepare($connected, $query);
 
+	// Check if the prepared statement is successfully deleted
 	if ($statement) {
 		mysqli_stmt_bind_param($statement, "i", $DELETE_id);
 
 		// Execute the statement
 		if (mysqli_stmt_execute($statement)) {
+			// Check the number of affected rows after the delete operation
 			$rowsAffected = mysqli_stmt_affected_rows($statement);
 
 			if ($rowsAffected > 0) {
@@ -28,6 +30,7 @@ if (isset($_GET['id'])) {
         	header("location: Category.php?st=failure");
 		}
 
+		// Close the prepared statement
 		mysqli_stmt_close($statement);
 	} else {
 		// echo "Error in preparing the statement: " . mysqli_error($connected);
