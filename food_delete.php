@@ -29,14 +29,14 @@ if (isset($_GET['id'])) {
 			$_SESSION['message'] = "<script>alert('Food menu delete failed. Please try again.');</script>";
 			header("location:FoodMenu.php?st=failure");
 		}
+
+		// Close the prepared statement
+		mysqli_stmt_close($statement);
 	} else {
 		// echo "Error in preparing the statement: " . mysqli_error($connected);
 		$_SESSION['message'] = "<script>alert('Food menu delete failed. Please try again.');</script>";
 		header("location:FoodMenu.php?st=failure");
 	}
-
-	// Close the prepared statement
-	mysqli_stmt_close($statement);
 } else {
 	$_SESSION['message'] = "<script>alert('Connection failed. Please try again.');</script>";
 	header("location:FoodMenu.php?st=failure");
