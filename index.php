@@ -17,7 +17,7 @@ if (!$object->SettedUp()) {
 
 <head>
 	<title>RMS - Login</title>
-	<link rel="icon" href="Restaurant-icon.png">
+	<link rel="icon" href="./media/Restaurant-icon.png">
 
 	<style>
 		body {
@@ -108,7 +108,7 @@ if (!$object->SettedUp()) {
 
 <body>
 	<div class="insertPic">
-		<img src="RMSLogo.jpg" width="370">
+		<img src="./media/RMSLogo.jpg" width="370">
 	</div>
 
 	<br>

@@ -17,7 +17,7 @@ $gender = $row['User_gender'];
 <html>
 
 <head>
-	<link rel="icon" href="Restaurant-icon.png">
+	<link rel="icon" href="./media/Restaurant-icon.png">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
@@ -120,7 +120,7 @@ $gender = $row['User_gender'];
 <body>
 	<div class="navbar">
 		<ul>
-			<a href="Dashboard.php"><img class="logo" src="Restaurant-icon.png" width="150"></a>
+			<a href="Dashboard.php"><img class="logo" src="./media/Restaurant-icon.png" width="150"></a>
 
 			<hr style="border:0.5px dashed grey;">
 
