@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
 		} else {
 			// echo "Error executing the statement: " . mysqli_stmt_error($statement);
 			$_SESSION['message'] = "<script>alert('Category delete failed. Please try again.');</script>";
-        	header("location: Category.php?st=failure");
+        	header("location:Category.php?st=failure");
 		}
 
 		// Close the prepared statement
@@ -35,7 +35,7 @@ if (isset($_GET['id'])) {
 	} else {
 		// echo "Error in preparing the statement: " . mysqli_error($connected);
 		$_SESSION['message'] = "<script>alert('Category delete failed. Please try again.');</script>";
-        header("location: Category.php?st=failure");
+        header("location:Category.php?st=failure");
 	}
 } else {
 	$_SESSION['message'] = "<script>alert('Connection failed. Please try again.');</script>";

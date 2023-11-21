@@ -42,7 +42,7 @@ if (isset($_POST['ID'])) {
 	} else {
 		// echo "Error in preparing the statement: " . mysqli_error($connected);
 		$_SESSION['message'] = "<script>alert('Category update failed. Please try again.');</script>";
-        header("location: Category.php?st=failure");
+        header("location:Category.php?st=failure");
 	}
 } else {
 	$_SESSION['message'] = "<script>alert('Connection failed. Please try again.');</script>";

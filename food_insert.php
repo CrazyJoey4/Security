@@ -5,35 +5,56 @@ include('connect.php');
 session_start();
 
 if (isset($_POST["Food_ID"])) {
-	$FOOD_ID = $_POST['Food_ID'];
+	$FOOD_id = $_POST['Food_ID'];
 
-	$query = mysqli_query($connected, "SELECT * FROM menu_table WHERE Food_ID = '$FOOD_ID'");
+	$query_check = "SELECT * FROM menu_table WHERE Food_ID = ?";
+	$statement_check = mysqli_prepare($connected, $query_check);
 
-	if (mysqli_num_rows($query) == 1) {
-		header("location:FoodMenu.php?st=failure");
+	if ($statement_check) {
+		mysqli_stmt_bind_param($statement_check, "s", $FOOD_id);
+		mysqli_stmt_execute($statement_check);
 
-		$_SESSION['message'] = "<script>alert('ID already exists! Please use another ID.')</script>";
-	} else {
-		$FOOD_name = $_POST['Food_name'];
-		$FOOD_cost = $_POST['Food_cost'];
-		$CATEGORY_name = $_POST['Category_name'];
-		$FOOD_status = $_POST['Food_status'];
+		mysqli_stmt_store_result($statement_check);
+		if (mysqli_stmt_num_rows($statement_check) > 0) {
+			$_SESSION['message'] = "<script>alert('Food ID already exists! Please use another Food ID.')</script>";
+			header("location:FoodMenu.php?st=failure");
+			exit();
+		}
 
-		$query = "
-			INSERT INTO `menu_table`
+		// Close the statement for checking
+		mysqli_stmt_close($statement_check);
+	}
+
+	$FOOD_name = $_POST['Food_name'];
+	$FOOD_cost = $_POST['Food_cost'];
+	$CATEGORY_name = $_POST['Category_name'];
+	$FOOD_status = $_POST['Food_status'];
+
+	$query = "INSERT INTO `menu_table`
 			(`Food_ID`, `Food_name`, `Food_cost`, `Category_name`, `Food_status`) 
-			VALUES ('$FOOD_ID', '$FOOD_name', '$FOOD_cost', '$CATEGORY_name', '$FOOD_status')";
+			VALUES (?, ?, ?, ?, ?)";
+	$statement = mysqli_prepare($connected, $query);
 
-		if (mysqli_query($connected, $query)) {
+	if ($statement) {
+		mysqli_stmt_bind_param($statement, "ssdss", $FOOD_id, $FOOD_name, $FOOD_cost, $CATEGORY_name, $FOOD_status);
+
+		if (mysqli_stmt_execute($statement)) {
+			$_SESSION['message'] = "<script>alert('New food menu added !');</script>";
 			header("location:FoodMenu.php?st=success");
-			$_SESSION['message'] = "<script>alert('Added !');</script>";
 		} else {
-			$_SESSION['message'] = "<script>alert('Failed. Try again.');</script>";
+			$_SESSION['message'] = "<script>alert('Add new food menu failed. Please try again.');</script>";
 			header("location:FoodMenu.php?st=failure");
 		}
+
+		// Close the prepared statement
+		mysqli_stmt_close($statement);
+	} else {
+		//echo "Error in preparing the statement: " . mysqli_error($connected);
+		$_SESSION['message'] = "<script>alert('Add new food menu failed. Please try again.');</script>";
+		header("location:FoodMenu.php?st=failure");
 	}
 } else {
-	echo "<script>alert('Connect failed. Try again.')</script>";
+	echo "<script>alert('Connection failed. Please try again.')</script>";
 	header("location:FoodMenu.php?st=allfailure");
 }
 ?>
