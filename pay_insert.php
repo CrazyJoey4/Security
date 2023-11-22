@@ -6,7 +6,7 @@ session_start();
 $object = new Connect();
 
 if (isset($_POST['Table_ID'])) {
-	$TABLE_ID = $_POST['Table_ID'];
+	$TABLE_id = $_POST['Table_ID'];
 	$GROSS = $_POST['Gross_pay'];
 	$TAX = $_POST['Tax_pay'];
 	$NET = $_POST['Net_pay'];
@@ -32,25 +32,68 @@ if (isset($_POST['Table_ID'])) {
 		$value = $value2;
 	}
 
-	$query = "
-		INSERT INTO `payment_table`
-		(`Order_ID`, `Gross_pay`, `Tax_pay`, `Net_pay`, `Pay_type`, `Pay_amount`, `Card_number`, `Pay_date`, `Pay_time`)
-		VALUES ('$value', '$GROSS', '$TAX', '$NET', '$PAYTYPE', '$PAY', '$CARD', '$DATE', '$TIME');
-		
-		DELETE FROM order_table WHERE Table_ID = '$TABLE_ID';
-		
-		UPDATE `table_data` SET `Live_status` = 'Available' WHERE Table_ID = '$TABLE_ID';
-		";
+	$query_insert = "INSERT INTO `payment_table`
+					(`Order_ID`, `Gross_pay`, `Tax_pay`, `Net_pay`, `Pay_type`, `Pay_amount`, `Card_number`, `Pay_date`, `Pay_time`)
+					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	$statement_insert = mysqli_prepare($connected, $query_insert);
 
-	if (mysqli_multi_query($connected, $query)) {
-		header("location:Payment.php?st=paid");
-		$_SESSION['message'] = "<script>alert('Payment Successful !');</script>";
+	if ($statement_insert) {
+		mysqli_stmt_bind_param($statement_insert, "sdddsdsss", $value, $GROSS, $TAX, $NET, $PAYTYPE, $PAY, $CARD, $DATE, $TIME);
+
+		if (mysqli_stmt_execute($statement_insert)) {
+			$query_delete = "DELETE FROM order_table WHERE Table_ID = ?";
+			$statement_delete = mysqli_prepare($connected, $query_delete);
+
+			if ($statement_delete) {
+				mysqli_stmt_bind_param($statement_delete, "s", $TABLE_id);
+
+				if (mysqli_stmt_execute($statement_delete)) {
+					$query_update = "UPDATE `table_data` SET `Live_status` = 'Available' WHERE Table_ID = ?";
+					$statement_update = mysqli_prepare($connected, $query_update);
+
+					if ($statement_update) {
+						mysqli_stmt_bind_param($statement_update, "s", $TABLE_id);
+
+						if (mysqli_stmt_execute($statement_update)) {
+							$_SESSION['message'] = "<script>alert('Payment successful!');</script>";
+							header("location:Payment.php?st=paid");
+						} else {
+							$_SESSION['message'] = "<script>alert('Payment failed. Please try again.');</script>";
+							header("location:Payment.php?st=failure");
+						}
+
+						// Close the prepared statement
+						mysqli_stmt_close($statement_update);
+					} else {
+						$_SESSION['message'] = "<script>alert('Payment failed. Please try again.');</script>";
+						header("location:Payment.php?st=failure");
+					}
+
+					// Close the prepared statement
+					mysqli_stmt_close($statement_delete);
+				} else {
+					$_SESSION['message'] = "<script>alert('Payment failed. Please try again.');</script>";
+					header("location:Payment.php?st=failure");
+				}
+			} else {
+				$_SESSION['message'] = "<script>alert('Payment failed. Please try again.');</script>";
+				header("location:Payment.php?st=failure");
+			}
+
+			// Close the prepared statement
+			mysqli_stmt_close($statement_insert);
+		} else {
+			//echo "Error in preparing the statement: " . mysqli_error($connected);
+			$_SESSION['message'] = "<script>alert('Payment failed. Please try again.');</script>";
+			header("location:Payment.php?st=failure");
+		}
 	} else {
-		$_SESSION['message'] = "<script>alert('Failed. Try again.');</script>";
+		//echo "Error in preparing the statement: " . mysqli_error($connected);
+		$_SESSION['message'] = "<script>alert('Payment failed. Please try again.');</script>";
 		header("location:Payment.php?st=failure");
 	}
 } else {
-	echo "<script>alert('Connect failed. Try again.')</script>";
+	echo "<script>alert('Connection failed. Please try again.')</script>";
 	header("location:Payment.php?st=allfailure");
 }
 ?>

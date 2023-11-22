@@ -23,8 +23,8 @@ if (isset($_POST["Table_ID"])) {
 				mysqli_stmt_bind_param($statement_update, "s", $TABLE_id);
 
 				if (mysqli_stmt_execute($statement_update)) {
+					$_SESSION['message'] = "<script>alert('New food order added!');</script>";
 					header("location:Order_Edit.php?id=" . $TABLE_id);
-					$_SESSION['message'] = "<script>alert('New food order added !');</script>";
 				} else {
 					$_SESSION['message'] = "<script>alert('Update table status failed. Please try again.');</script>";
 					header("location:Order_Edit.php?st=failure");
