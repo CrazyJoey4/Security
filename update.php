@@ -43,26 +43,48 @@ if (isset($_SESSION['User_ID'])) {
 		exit();
 	}
 
-	$query = "
-			UPDATE `user_table` SET 
-			`User_name` = '$NAME',
-			`User_email` = '$EMAIL',
-			`User_pwd` = '$PASSWORD',
-			`User_contact` = '$CONTACT',
-			`User_birthday` = '$BIRTHDAY',
-			`User_gender` = '$GENDER' 
-			WHERE User_ID = '$ID'
-			";
+	$HASHEDPWD = password_hash($PASSWORD, PASSWORD_DEFAULT);
 
-	if (mysqli_query($connected, $query)) {
-		header("location:Profile.php?st=success");
-		$_SESSION['message'] = "<script>alert('Updated !');</script>";
+	$query = "UPDATE `user_table` SET 
+			`User_name` = ?,
+			`User_email` = ?,
+			`User_pwd` = ?,
+			`User_contact` = ?,
+			`User_birthday` = ?
+			WHERE User_ID = ?";
+	$statement = mysqli_prepare($connected, $query);
+
+	// Check if the prepared statement is successfully updated
+	if ($statement) {
+		// Check the number of affected rows after the update operation
+		mysqli_stmt_bind_param($statement, "ssssss", $NAME, $EMAIL, $HASHEDPWD, $CONTACT, $BIRTHDAY, $ID);
+
+		// Execute the statement
+		if (mysqli_stmt_execute($statement)) {
+			$rowsAffected = mysqli_stmt_affected_rows($statement);
+
+			if ($rowsAffected > 0) {
+				$_SESSION['message'] = "<script>alert('Profile updated!');</script>";
+				header("location:Profile.php?st=success");
+			} else {
+				$_SESSION['message'] = "<script>alert('Profile update failed. Please try again.');</script>";
+				header("location:Profile.php?st=failure");
+			}
+		} else {
+			// echo "Error executing the statement: " . mysqli_stmt_error($statement);
+			$_SESSION['message'] = "<script>alert('Profile update failed. Please Try again.');</script>";
+			header("location:Profile.php?st=failure");
+		}
+
+		// Close the prepared statement
+		mysqli_stmt_close($statement);
 	} else {
-		$_SESSION['message'] = "<script>alert('Update failed. Try again.');</script>";
+		// echo "Error in preparing the statement: " . mysqli_error($connected);
+		$_SESSION['message'] = "<script>alert('Profile update failed. Please try again.');</script>";
 		header("location:Profile.php?st=failure");
 	}
 } else {
-	$_SESSION['message'] = "<script>alert('Connect failed. Try again.');</script>";
+	$_SESSION['message'] = "<script>alert('Connection failed. Please try again.');</script>";
 	header("location:Profile.php?st=failure");
 }
 ?>

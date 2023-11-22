@@ -132,7 +132,7 @@ include('connect.php');
 				</tr>
 
 				<?PHP
-				$result = mysqli_query($connected, "select * FROM attendance_table WHERE Staff_ID != 'EMP000' ORDER BY Att_ID ASC");
+				$result = mysqli_query($connected, "SELECT * FROM attendance_table WHERE Staff_ID != 'EMP000' ORDER BY Att_ID ASC");
 				while ($row = mysqli_fetch_array($result)) {
 					$query2 = "SELECT * FROM user_table WHERE User_ID = '" . $row['Staff_ID'] . "'";
 					$result2 = mysqli_query($connected, $query2);
