@@ -8,6 +8,13 @@ $object = new Connect();
 if (!$object->isLogin()) {
 	header("location:" . $object->base_url . "index.php");
 }
+
+$allowedRoles = ["Master", "Waiter"];
+
+if (!$object->checkUserRole($position, $allowedRoles)) {
+    header("Location: Dashboard.php");
+    exit();
+}
 ?>
 
 <html>

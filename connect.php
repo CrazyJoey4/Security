@@ -44,6 +44,11 @@ class Connect
 		return false;
 	}
 
+	function checkUserRole($userPosition, $allowedRoles)
+    {
+        return in_array($userPosition, $allowedRoles);
+    }
+
 	//DateTime format
 	function get_datetime()
 	{
