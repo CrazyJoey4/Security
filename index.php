@@ -1,6 +1,4 @@
 <?php
-//index.php
-
 include("connect.php");
 
 session_start();
@@ -9,13 +7,55 @@ $object = new Connect();
 
 if (!$object->SettedUp()) {
 	header("location:" . $object->base_url . "RegisterForm.php");
+	exit();
+}
+
+// Initialize variables
+$isRecaptchaVerified = false;
+$recaptchaError = '';
+
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	// Verify reCAPTCHA
+	$recaptchaSecretKey = '6LdGKBgpAAAAANTTlv9EblGac0vE9TK2LTrSXH2h';
+	$recaptchaResponse = $_POST['g-recaptcha-response'];
+
+	$recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
+	$recaptchaData = [
+		'secret' => $recaptchaSecretKey,
+		'response' => $recaptchaResponse,
+	];
+
+	$options = [
+		'http' => [
+			'header' => 'Content-type: application/x-www-form-urlencoded',
+			'method' => 'POST',
+			'content' => http_build_query($recaptchaData),
+		],
+	];
+
+	$context = stream_context_create($options);
+	$recaptchaResult = file_get_contents($recaptchaUrl, false, $context);
+	$recaptchaResult = json_decode($recaptchaResult, true);
+
+	if ($recaptchaResult['success']) {
+		// reCAPTCHA verification passed
+		$isRecaptchaVerified = true;
+
+		// Your further processing logic goes here (e.g., database interactions)
+	} else {
+		// reCAPTCHA verification failed
+		$recaptchaError = 'reCAPTCHA verification failed. Please try again.';
+	}
 }
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>RMS - Login</title>
 	<link rel="icon" href="./media/Restaurant-icon.png">
 
@@ -39,7 +79,7 @@ if (!$object->SettedUp()) {
 			margin-right: auto;
 			width: 50%;
 			background: snow;
-			padding: 20px;
+			padding-top: 20px;
 			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 		}
 
@@ -103,7 +143,13 @@ if (!$object->SettedUp()) {
 			color: green;
 			padding: 10px 100px;
 		}
+
+		.recaptcha-container {
+			margin-top: 25px;
+		}
 	</style>
+
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
@@ -113,10 +159,9 @@ if (!$object->SettedUp()) {
 
 	<br>
 
-
 	<div class="wrap">
 		<center>
-			<?PHP
+			<?php
 			if (isset($_SESSION['message'])) {
 				$message = $_SESSION['message'];
 
@@ -144,6 +189,14 @@ if (!$object->SettedUp()) {
 
 				<input type="submit" name="Sign" id="Sign" value="Log In" class="submit">
 				<br>
+
+				<!-- Add reCAPTCHA container underneath the login button -->
+				<div class="recaptcha-container">
+					<div class="g-recaptcha" data-sitekey="6LdGKBgpAAAAAMsydD7B6MPDVDHnFF66JP31kovI"></div>
+				</div>
+
+				<br><br>
+
 			</form>
 		</center>
 	</div>
