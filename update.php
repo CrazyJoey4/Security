@@ -50,14 +50,15 @@ if (isset($_SESSION['User_ID'])) {
 			`User_email` = ?,
 			`User_pwd` = ?,
 			`User_contact` = ?,
-			`User_birthday` = ?
+			`User_birthday` = ?,
+			`User_gender` = ?
 			WHERE User_ID = ?";
 	$statement = mysqli_prepare($connected, $query);
 
 	// Check if the prepared statement is successfully updated
 	if ($statement) {
 		// Check the number of affected rows after the update operation
-		mysqli_stmt_bind_param($statement, "ssssss", $NAME, $EMAIL, $HASHEDPWD, $CONTACT, $BIRTHDAY, $ID);
+		mysqli_stmt_bind_param($statement, "sssssss", $NAME, $EMAIL, $HASHEDPWD, $CONTACT, $BIRTHDAY, $GENDER, $ID);
 
 		// Execute the statement
 		if (mysqli_stmt_execute($statement)) {
@@ -72,7 +73,7 @@ if (isset($_SESSION['User_ID'])) {
 			}
 		} else {
 			// echo "Error executing the statement: " . mysqli_stmt_error($statement);
-			$_SESSION['message'] = "<script>alert('Profile update failed. Please Try again.');</script>";
+			$_SESSION['message'] = "<script>alert('Profile update failed. Please try again.');</script>";
 			header("location:Profile.php?st=failure");
 		}
 

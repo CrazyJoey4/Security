@@ -239,7 +239,7 @@ if (!$object->isLogin()) {
 			<h2>Waiter</h2>
 
 			<?php
-			$result = mysqli_query($connected, "select * FROM user_table WHERE User_position = 'Waiter'");
+			$result = mysqli_query($connected, "SELECT * FROM user_table WHERE User_position = 'Waiter'");
 
 			echo "<table class = 'shown'>
 						<tr>
@@ -279,7 +279,7 @@ if (!$object->isLogin()) {
 		<div class="wrap">
 			<h2>Cashier</h2>
 			<?php
-			$result = mysqli_query($connected, "select * FROM user_table WHERE User_position = 'Cashier'");
+			$result = mysqli_query($connected, "SELECT * FROM user_table WHERE User_position = 'Cashier'");
 
 			echo "<table class = 'shown'>
 						<tr>
