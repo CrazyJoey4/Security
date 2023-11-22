@@ -17,23 +17,43 @@ if (isset($_POST['Wait_ID'])) {
 		exit();
 	}
 
-	$query = "
-			UPDATE `waitlist_table` SET 
-			`Cus_name` = '$NAME',
-			`Cus_Pax` = '$PAX',
-			`Cus_contact` = '$CONTACT'
-			WHERE `Wait_ID` = '$ID'
-			";
+	$query = "UPDATE `waitlist_table` SET 
+			`Cus_name` = ?,
+			`Cus_Pax` = ?,
+			`Cus_contact` = ?
+			WHERE `Wait_ID` = ?";
+	$statement = mysqli_prepare($connected, $query);
 
-	if (mysqli_query($connected, $query)) {
-		header("location:Waitlist.php?st=updated");
-		$_SESSION['message'] = "<script>alert('Updated !');</script>";
+	// Check if the prepared statement is successfully updated
+	if ($statement) {
+		// Check the number of affected rows after the update operation
+		mysqli_stmt_bind_param($statement, "siss", $NAME, $PAX, $CONTACT, $ID);
+
+		// Execute the statement
+		if (mysqli_stmt_execute($statement)) {
+			$rowsAffected = mysqli_stmt_affected_rows($statement);
+
+			if ($rowsAffected > 0) {
+				$_SESSION['message'] = "<script>alert('Waitlist updated!');</script>";
+				header("location:Waitlist.php?st=updated");
+			} else {
+				$_SESSION['message'] = "<script>alert('Waitlist update failed. Please try again.');</script>";
+				header("location:Waitlist.php?st=failure");
+			}
+		} else {
+			// echo "Error executing the statement: " . mysqli_stmt_error($statement);
+			$_SESSION['message'] = "<script>alert('Waitlist update failed. Please try again.');</script>";
+			header("location:Waitlist.php?st=failure");
+		}
+
+		// Close the prepared statement
+		mysqli_stmt_close($statement);
 	} else {
-		$_SESSION['message'] = "<script>alert('Update failed. Try again.');</script>";
+		// echo "Error in preparing the statement: " . mysqli_error($connected);
+		$_SESSION['message'] = "<script>alert('Waitlist update failed. Please try again.');</script>";
 		header("location:Waitlist.php?st=failure");
 	}
 } else {
-	$_SESSION['message'] = "<script>alert('Connect failed. Try again.');</script>";
+	$_SESSION['message'] = "<script>alert('Connection failed. Please try again.');</script>";
 	header("location:Waitlist.php?st=failure");
 }
-?>

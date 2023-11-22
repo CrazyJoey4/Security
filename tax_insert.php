@@ -11,20 +11,31 @@ if (isset($_POST["Tax_name"])) {
 
 	$percent = $TAX_percent / 100;
 
-	$query = "
-		INSERT INTO `tax_table`
-		(`Tax_name`, `Tax_percent`, `Tax_status`) 
-		VALUES ('$TAX_name', '$percent', '$TAX_status')";
+	$query = "INSERT INTO `tax_table`
+			(`Tax_name`, `Tax_percent`, `Tax_status`) 
+			VALUES (?, ?, ?)";
+	$statement = mysqli_prepare($connected, $query);
 
-	if (mysqli_query($connected, $query)) {
-		header("location:Tax.php?st=success");
-		$_SESSION['message'] = "<script>alert('Added !');</script>";
+	if ($statement) {
+		mysqli_stmt_bind_param($statement, "sds", $TAX_name, $percent, $TAX_status);
+
+		if (mysqli_stmt_execute($statement)) {
+			$_SESSION['message'] = "<script>alert('New tax added!');</script>";
+			header("location:Tax.php?st=success");
+		} else {
+			$_SESSION['message'] = "<script>alert('Add new tax failed. Please try again.');</script>";
+			header("location:Tax.php?st=failure");
+		}
+
+		// Close the prepared statement
+		mysqli_stmt_close($statement);
 	} else {
-		$_SESSION['message'] = "<script>alert('Failed. Try again.');</script>";
+		//echo "Error in preparing the statement: " . mysqli_error($connected);
+		$_SESSION['message'] = "<script>alert('Add new tax failed. Please try again.');</script>";
 		header("location:Tax.php?st=failure");
 	}
 } else {
-	echo "<script>alert('Connect failed. Try again.')</script>";
+	echo "<script>alert('Connection failed. Please try again.')</script>";
 	header("location:Tax.php?st=allfailure");
 }
 ?>
