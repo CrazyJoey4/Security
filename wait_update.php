@@ -10,6 +10,13 @@ if (isset($_POST['Wait_ID'])) {
 	$PAX = $_POST['Cus_Pax'];
 	$CONTACT = $_POST['Cus_contact'];
 
+	// Validate phone number (assuming a simple format)
+	if (!preg_match('/^\d{10}$/', $CONTACT)) {
+		$_SESSION['message'] = "<script>alert('Invalid phone number.');</script>";
+		header("location:Wait_Edit.php?id=$ID");
+		exit();
+	}
+
 	$query = "
 			UPDATE `waitlist_table` SET 
 			`Cus_name` = '$NAME',

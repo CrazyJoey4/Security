@@ -22,7 +22,7 @@ if (!$object->isLogin()) {
 			background-color: #B2D2FC;
 			height: 100%;
 			padding-top: 20px;
-			font-size: 20px;
+			font-size: 18px;
 			font-family: georgia, garamond, serif;
 		}
 
@@ -53,7 +53,6 @@ if (!$object->isLogin()) {
 			width: 150px;
 			padding: 10px;
 			font-family: Times New Roman;
-			font-size: 25px;
 			background-color: #85BAFF;
 			color: snow;
 			outline: none;
@@ -67,7 +66,7 @@ if (!$object->isLogin()) {
 			text-align: center;
 			padding: 10px;
 			font-family: georgia, garamond, serif;
-			font-size: 30px;
+			font-size: 20px;
 			font-weight: bold;
 			color: snow;
 			border-radius: 20px 0 10px;
@@ -81,7 +80,7 @@ if (!$object->isLogin()) {
 			float: right;
 			text-align: center;
 			padding: 5px;
-			font-family: Times New Roman;
+			font-family: 'Times New Roman';
 			font-size: 15px;
 			font-weight: italic;
 			border-radius: 20px 0 10px;
@@ -115,7 +114,7 @@ if (!$object->isLogin()) {
 			margin-top: 20px;
 			width: 260px;
 			padding: 10px;
-			font-family: Times New Roman;
+			font-family: 'Times New Roman';
 			font-size: 25px;
 			background-color: #85BAFF;
 			color: snow;

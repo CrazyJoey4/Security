@@ -234,6 +234,15 @@ if (isset($_GET['id'])) {
 	<div class="content">
 		<div class="wrap">
 
+			<span>
+				<?PHP
+				if (isset($_SESSION['message'])) {
+					echo $_SESSION['message'];
+				}
+				unset($_SESSION['message']);
+				?>
+			</span>
+
 			<a href="FoodMenu.php">
 				<button class="back_btn"><i class='material-icons'>arrow_back</i></button>
 			</a>
@@ -246,7 +255,6 @@ if (isset($_GET['id'])) {
 
 				<div class="InputText" style="display:none;">
 					<input type="text" name="Food_ID" id="Food_ID" value="<?PHP echo $ID; ?>" required />
-					<label>ID</label>
 				</div>
 
 				<div class="InputText">
@@ -276,12 +284,10 @@ if (isset($_GET['id'])) {
 				<div class="option" style="text-align:left;">
 					<label>Status</label>
 					<br>
-					<input class="checkbox-option" type="radio" name="Food_status" id="Available" value="Available"
-						required />
+					<input class="checkbox-option" type="radio" name="Food_status" id="Available" value="Available" />
 					<label class="for-checkbox-option" for="Available">Available</label>
 
-					<input class="checkbox-option" type="radio" name="Food_status" id="Sold Out" value="Sold Out"
-						required />
+					<input class="checkbox-option" type="radio" name="Food_status" id="Sold Out" value="Sold Out" />
 					<label class="for-checkbox-option" for="Sold Out">Sold Out</label>
 				</div>
 

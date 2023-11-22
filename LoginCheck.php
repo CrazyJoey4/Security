@@ -5,10 +5,18 @@ session_start();
 $object = new Connect();
 
 if (isset($_POST["Sign"])) {
-	$USER_id = $_POST['User_ID'];
-	$USER_pwd = $_POST['User_pwd'];
+    $USER_id = $_POST['User_ID'];
+    $USER_pwd = $_POST['User_pwd'];
 
-	$query = "SELECT * FROM user_table WHERE User_ID = ?";
+    // Validate input fields to avoid empty values
+    if (empty($USER_id) || empty($USER_pwd)) {
+        $_SESSION['message'] = "Please fill in all fields.";
+        echo "<script>alert('Please fill in all fields.');</script>";
+        header("location:index.php?st=empty");
+        exit();
+    }
+
+    $query = "SELECT * FROM user_table WHERE User_ID = ?";
     $statement = mysqli_prepare($connected, $query);
 
     if ($statement) {
@@ -24,14 +32,14 @@ if (isset($_POST["Sign"])) {
                 $_SESSION['User_ID'] = $row['User_ID'];
                 $DATETIME = $object->get_datetime();
 
-                mysqli_query($connected, "INSERT INTO `attendance_table` (`Staff_ID`, `LoginTime`) VALUES ('".$_SESSION['User_ID']."', '$DATETIME');");
+                mysqli_query($connected, "INSERT INTO `attendance_table` (`Staff_ID`, `LoginTime`) VALUES ('" . $_SESSION['User_ID'] . "', '$DATETIME');");
                 header("location:Dashboard.php");
             } else {
-                $_SESSION['message'] = "Login failed. Please check your ID and password.";
+                $_SESSION['message'] = "Login failed.";
                 header("location:index.php?st=failure");
             }
         } else {
-            $_SESSION['message'] = "Login failed. User not found.";
+            $_SESSION['message'] = "Login failed.";
             header("location:index.php?st=failure");
         }
 

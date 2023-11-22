@@ -246,7 +246,6 @@ if (!$object->isLogin()) {
 							<th width='5%'>ID</th>
 							<th width='15%'>Name</th>
 							<th width='15%'>Email</th>
-							<th width='10%'>Password</th>
 							<th width='10%'>Start Work On</th>
 							<th width='10%'>Contact Number</th>
 							<th width='10%'>Date of Birth</th>
@@ -259,7 +258,6 @@ if (!$object->isLogin()) {
 				echo "<td width='20px'>" . $row['User_ID'] . "</td>";
 				echo "<td>" . $row['User_name'] . "</td>";
 				echo "<td>" . $row['User_email'] . "</td>";
-				echo "<td>" . $row['User_pwd'] . "</td>";
 				echo "<td style = 'text-align:center'>" . $row['User_start'] . "</td>";
 				echo "<td>" . $row['User_contact'] . "</td>";
 				echo "<td>" . $row['User_birthday'] . "</td>";
@@ -288,7 +286,6 @@ if (!$object->isLogin()) {
 							<th width='5%'>ID</th>
 							<th width='15%'>Name</th>
 							<th width='15%'>Email</th>
-							<th width='10%'>Password</th>
 							<th width='10%'>Start Work On</th>
 							<th width='10%'>Contact Number</th>
 							<th width='10%'>Date of Birth</th>
@@ -301,7 +298,6 @@ if (!$object->isLogin()) {
 				echo "<td>" . $row['User_ID'] . "</td>";
 				echo "<td>" . $row['User_name'] . "</td>";
 				echo "<td>" . $row['User_email'] . "</td>";
-				echo "<td>" . $row['User_pwd'] . "</td>";
 				echo "<td style = 'text-align:center'>" . $row['User_start'] . "</td>";
 				echo "<td>" . $row['User_contact'] . "</td>";
 				echo "<td>" . $row['User_birthday'] . "</td>";

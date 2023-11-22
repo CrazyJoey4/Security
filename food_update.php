@@ -10,6 +10,13 @@ if (isset($_POST['Food_ID'])) {
 	$FOOD_cost = $_POST['Food_cost'];
 	$FOOD_status = $_POST['Food_status'];
 
+	// Validate input fields to avoid empty values
+    if (empty($FOOD_status)) {
+        $_SESSION['message'] = "<script>alert('Please select a status.');</script>";
+		header("location:Food_Edit.php?id=$ID");
+        exit();
+    }
+
 	$query = "UPDATE `menu_table` SET 
 			`Food_name` = ?,
 			`Food_cost` = ?,			

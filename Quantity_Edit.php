@@ -224,7 +224,7 @@ if (isset($_GET['id'])) {
 
 				<div class="InputText">
 					<input type="number" name="Food_quantity" id="Food_quantity" value="<?PHP echo $QUANTITY; ?>"
-						required />
+						required min="1" step="1" />
 					<label>Quantity</label>
 				</div>
 

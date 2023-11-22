@@ -209,6 +209,15 @@ if (isset($_GET['id'])) {
 	<div class="content">
 		<div class="wrap">
 
+			<span>
+				<?PHP
+				if (isset($_SESSION['message'])) {
+					echo $_SESSION['message'];
+				}
+				unset($_SESSION['message']);
+				?>
+			</span>
+
 			<button class="back_btn">
 				<a href="Table.php"><i class='material-icons'>arrow_back</i></a>
 			</button>
@@ -226,7 +235,8 @@ if (isset($_GET['id'])) {
 				<br>
 
 				<div class="InputText">
-					<input type="number" name="Capacity" id="Capacity" required value="<?PHP echo $CAPACITY; ?>" />
+					<input type="number" name="Capacity" id="Capacity" required value="<?PHP echo $CAPACITY; ?>" min=1
+						step=1 />
 					<label>Capacity</label>
 				</div>
 
@@ -235,11 +245,10 @@ if (isset($_GET['id'])) {
 				<div class="option" style="text-align:left;">
 					<label>Status</label>
 					<br>
-					<input class="checkbox-option" type="radio" name="Table_status" id="Able" value="Able" required />
+					<input class="checkbox-option" type="radio" name="Table_status" id="Able" value="Able" />
 					<label class="for-checkbox-option" for="Able">Able</label>
 
-					<input class="checkbox-option" type="radio" name="Table_status" id="Disable" value="Disable"
-						required />
+					<input class="checkbox-option" type="radio" name="Table_status" id="Disable" value="Disable" />
 					<label class="for-checkbox-option" for="Disable">Disable</label>
 				</div>
 

@@ -9,6 +9,13 @@ if (isset($_POST['ID'])) {
 	$CATEGORY_name = $_POST['Category_name'];
 	$CATEGORY_status = $_POST['Category_status'];
 
+	// Validate input fields to avoid empty values
+    if (empty($CATEGORY_status)) {
+        $_SESSION['message'] = "<script>alert('Please select a status.');</script>";
+		header("location:Category_Edit.php?id=$ID?st=empty");
+        exit();
+    }
+
 	$query = "UPDATE `category_table` SET 
 			`Category_name` = ?,
 			`Category_status` = ?

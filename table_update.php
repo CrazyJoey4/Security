@@ -9,6 +9,13 @@ if (isset($_POST['Table_ID'])) {
 	$CAPACITY = $_POST['Capacity'];
 	$STATUS = $_POST['Table_status'];
 
+	// Validate input fields to avoid empty values
+    if (empty($STATUS)) {
+        $_SESSION['message'] = "<script>alert('Please select a status.');</script>";
+		header("location:Table_Edit.php?id=$ID");
+        exit();
+    }
+
 	$query = "
 			UPDATE `table_data` SET 
 			`Capacity` = '$CAPACITY',

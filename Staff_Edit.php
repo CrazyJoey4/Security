@@ -37,6 +37,7 @@ if (isset($_GET['id'])) {
 			padding-top: 20px;
 			font-size: 20px;
 			font-family: georgia, garamond, serif;
+			min-height: -webkit-fill-available;
 		}
 
 		h1 {
@@ -46,13 +47,6 @@ if (isset($_GET['id'])) {
 		}
 
 		.upperT {
-			text-align: left;
-			font-style: italic;
-			border-bottom: 2px solid grey;
-			font-weight: bold;
-		}
-
-		.lowerT {
 			text-align: left;
 			font-style: italic;
 			border-bottom: 2px solid grey;
@@ -235,25 +229,31 @@ if (isset($_GET['id'])) {
 	<div class="content">
 		<div class="wrap">
 
+			<span>
+				<?PHP
+				if (isset($_SESSION['message'])) {
+					echo $_SESSION['message'];
+				}
+				unset($_SESSION['message']);
+				?>
+			</span>
+
 			<button class="back_btn">
 				<a href="Staff.php"><i class='material-icons'>arrow_back</i></a>
 			</button>
 
 
 			<form method="post" action="staff_update.php">
-				<h1>Account Details</h1>
-				<h3 class="upperT">Personal Details</h3>
+				<h1>Change Roles</h1>
+				<h3 class="upperT">Employee Details</h3>
 
-				<div class="InputText">
-					<input type="text" name="User_name" id="User_name" value="<?PHP echo $name; ?>" />
-					<label>Name</label>
+				<div class="InputText" style="display:none;">
+					<input type="text" name="User_ID" id="User_ID" value="<?PHP echo $ID; ?>" />
 				</div>
 
-				<br>
-
 				<div class="InputText">
-					<input type="text" name="User_email" id="User_email" required value="<?PHP echo $email; ?>" />
-					<label>Email</label>
+					<input type="text" class="disabled" name="User_name" id="User_name" value="<?PHP echo $name; ?>" disabled />
+					<label style="color:black;">Name</label>
 				</div>
 
 				<br>
@@ -261,99 +261,16 @@ if (isset($_GET['id'])) {
 				<div class="option">
 					<label>Position</label>
 					<br>
-					<input class="checkbox-option" type="radio" name="User_position" id="Waiter" value="Waiter"
-						required />
+					<input class="checkbox-option" type="radio" name="User_position" id="Waiter" value="Waiter" />
 					<label class="for-checkbox-option" for="Waiter">Waiter</label>
 
-					<input class="checkbox-option" type="radio" name="User_position" id="Cashier" value="Cashier"
-						required />
+					<input class="checkbox-option" type="radio" name="User_position" id="Cashier" value="Cashier" />
 					<label class="for-checkbox-option" for="Cashier">Cashier</label>
 				</div>
 
 				<br>
 
-				<div class="InputText">
-					<input type="text" class="disabled" name="User_start" id="User_start"
-						value="<?PHP $created = date('Y-m-d');
-						echo $created; ?>" disabled />
-					<label style="color:black;">Account Created On</label>
-				</div>
-
-				<br>
-
-				<div class="InputText">
-					<input type="number" name="User_contact" id="User_contact" required
-						value="<?PHP echo $contact; ?>" />
-					<label>Contact</label>
-				</div>
-
-				<br>
-
-				<div class="InputText">
-					<input type="date" name="User_birthday" id="User_birthday" value="<?PHP echo $birthday; ?>" />
-					<label>Date of Birth</label>
-				</div>
-
-				<br>
-
-				<?PHP
-				if ($gender == null) {
-					?>
-					<div class="option">
-						<label>Gender</label>
-						<br>
-						<input class="checkbox-option" type="radio" name="User_gender" id="Male" value="Male" required />
-						<label class="for-checkbox-option" for="Male">Male</label>
-
-						<input class="checkbox-option" type="radio" name="User_gender" id="Female" value="Female"
-							required />
-						<label class="for-checkbox-option" for="Female">Female</label>
-					</div>
-					<?PHP
-
-				} else {
-					?>
-					<div class="InputText" style="display:none;">
-						<input type="text" name="User_gender" id="User_gender" value="<?PHP echo $gender; ?>" />
-						<label style="color:black;">Gender</label>
-					</div>
-
-					<div class="InputText">
-						<input type="text" class="disabled" value="<?PHP echo $gender; ?>" disabled />
-						<label style="color:black;">Gender</label>
-					</div>
-					<?PHP
-				}
-				?>
-
-				<br>
-
-				<h3 class="lowerT">Log In Details<h3>
-
-
-
-						<div class="InputText" style="display:none;">
-							<input type="text" name="User_ID" id="User_ID" value="<?PHP echo $ID; ?>" required
-								maxlength="6" />
-							<label style="color:black;">ID</label>
-						</div>
-
-						<div class="InputText">
-							<input class="disabled" type="text" value="<?PHP echo $ID; ?>" disabled />
-							<label style="color:black;">ID</label>
-						</div>
-
-						<br>
-
-						<div class="InputText">
-							<input type="password" name="User_pwd" id="User_pwd" value="<?PHP echo $password; ?>"
-								required />
-							<label>Password</label>
-						</div>
-
-						<br><br>
-
-						<input type="submit" class="submit" name="submit" value="Update">
+				<input type="submit" class="submit" name="submit" value="Update">
 			</form>
 		</div>
 	</div>

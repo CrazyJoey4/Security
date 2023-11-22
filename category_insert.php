@@ -8,6 +8,20 @@ if (isset($_POST["Category_name"])) {
 	$CATEGORY_name = $_POST['Category_name'];
 	$CATEGORY_status = $_POST['Category_status'];
 
+	// Validate input fields to avoid empty values
+	if (empty($CATEGORY_name) || empty($CATEGORY_status)) {
+		$_SESSION['message'] = "<script>alert('Please fill in all fields.');</script>";
+		header("location:Category.php?st=empty");
+		exit();
+	}
+
+	// Validate category name (no special characters or numbers allowed)
+	if (!preg_match('/^[a-zA-Z\s]+$/', $CATEGORY_name)) {
+		$_SESSION['message'] = "<script>alert('Invalid category name. Only letters and spaces are allowed.');</script>";
+		header("location:Category.php?st=invalid_name");
+		exit();
+	}
+
 	$query = "INSERT INTO `category_table`
 			(`Category_name`, `Category_status`) 
 			VALUES (?, ?)";

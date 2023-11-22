@@ -217,6 +217,15 @@ if (isset($_GET['id'])) {
 	<div class="content">
 		<div class="wrap">
 
+			<span>
+				<?PHP
+				if (isset($_SESSION['message'])) {
+					echo $_SESSION['message'];
+				}
+				unset($_SESSION['message']);
+				?>
+			</span>
+
 			<a href="Category.php">
 				<button class="back_btn"><i class='material-icons'>arrow_back</i></button>
 			</a>
@@ -228,16 +237,11 @@ if (isset($_GET['id'])) {
 				<hr style="border-bottom:2px solid grey;">
 
 				<div class="InputText" style="display:none;">
-					<input type="number" name="ID" id="ID" value="<?PHP echo $ID; ?>" required />
-					<label>ID</label>
+					<input type="number" name="ID" id="ID" value="<?PHP echo $ID; ?>" />
+					<input type="text" name="Category_name" id="Category_name" value="<?PHP echo $NAME; ?>" />					
 				</div>
 
 				<br>
-
-				<div class="InputText" style="display:none;">
-					<input type="text" name="Category_name" id="Category_name" value="<?PHP echo $NAME; ?>" required />
-					<label>Name</label>
-				</div>
 
 				<div class="InputText">
 					<input class="disabled" type="text" value="<?PHP echo $NAME; ?>" disabled />
@@ -249,12 +253,10 @@ if (isset($_GET['id'])) {
 				<div class="option" style="text-align:left;">
 					<label>Status</label>
 					<br>
-					<input class="checkbox-option" type="radio" name="Category_status" id="Able" value="Able"
-						required />
+					<input class="checkbox-option" type="radio" name="Category_status" id="Able" value="Able" />
 					<label class="for-checkbox-option" for="Able">Able</label>
 
-					<input class="checkbox-option" type="radio" name="Category_status" id="Disable" value="Disable"
-						required />
+					<input class="checkbox-option" type="radio" name="Category_status" id="Disable" value="Disable" />
 					<label class="for-checkbox-option" for="Disable">Disable</label>
 				</div>
 

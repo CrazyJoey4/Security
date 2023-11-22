@@ -161,6 +161,15 @@ if (isset($_GET['id'])) {
 	<div class="content">
 		<div class="wrap">
 
+			<span>
+				<?PHP
+				if (isset($_SESSION['message'])) {
+					echo $_SESSION['message'];
+				}
+				unset($_SESSION['message']);
+				?>
+			</span>
+
 			<button class="back_btn">
 				<a href="Waitlist.php"><i class='material-icons'>arrow_back</i></a>
 			</button>

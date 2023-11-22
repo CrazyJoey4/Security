@@ -248,9 +248,8 @@ $gender = $row['User_gender'];
 				<br>
 
 				<div class="InputText">
-					<input type="text" class="disabled" name="User_start" id="User_start"
-						value="<?PHP $created = date('Y-m-d');
-						echo $created; ?>" disabled />
+					<input type="text" class="disabled" name="User_start" id="User_start" value="<?PHP $created = date('Y-m-d');
+					echo $created; ?>" disabled />
 					<label style="color:black;">Account Created On</label>
 				</div>
 
@@ -303,28 +302,26 @@ $gender = $row['User_gender'];
 
 				<br>
 
-				<h3 class="lowerT">Log In Details<h3>
+				<h3 class="lowerT">Log In Details</h3>
 
-						<br>
+				<br>
 
-						<div class="InputText">
-							<input type="text" class="disabled" name="User_ID" id="User_ID" value="<?PHP echo $ID; ?>"
-								disabled />
-							<label style="color:black;">ID</label>
-						</div>
+				<div class="InputText">
+					<input type="text" class="disabled" name="User_ID" id="User_ID" value="<?PHP echo $ID; ?>"
+						disabled />
+					<label style="color:black;">ID</label>
+				</div>
 
-						<br>
+				<br>
 
-						<div class="InputText">
-							<i class="far fa-eye" onclick="show()"></i>
-							<input type="password" name="User_pwd" id="User_pwd" value="<?PHP echo $password; ?>"
-								required />
-							<label>Password</label>
-						</div>
-						<br><br>
+				<div class="InputText">
+					<i class="far fa-eye" onclick="show()"></i>
+					<input type="password" name="User_pwd" id="User_pwd" value="<?PHP echo $password; ?>" required />
+					<label>Password</label>
+				</div>
+				<br><br>
 
-						<input type="submit" class="submit" name="submit" value="Update"
-							onClick="return confirmSubmit()">
+				<input type="submit" class="submit" name="submit" value="Update" onClick="return confirmSubmit()">
 			</form>
 		</div>
 	</div>

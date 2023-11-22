@@ -13,6 +13,13 @@ if (isset($_POST["Wait_ID"])) {
 	$CUS_contact = $_POST['Cus_contact'];
 	$CUS_time = $object->get_datetime();
 
+	// Validate phone number (assuming a simple format)
+	if (!preg_match('/^\d{10}$/', $CUS_contact)) {
+		$_SESSION['message'] = "<script>alert('Invalid phone number.');</script>";
+		header("location:Waitlist.php");
+		exit();
+	}
+
 	$query = "
 		INSERT INTO `waitlist_table`
 		(`Wait_ID`, `Cus_name`, `Cus_Pax`, `Cus_contact`, `Wait_time`) 
