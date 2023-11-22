@@ -8,7 +8,7 @@ $isRecaptchaVerified = false;
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verify reCAPTCHA
-    $recaptchaSecretKey = 'your_recaptcha_secret_key';
+    $recaptchaSecretKey = '6LdGKBgpAAAAANTTlv9EblGac0vE9TK2LTrSXH2h';
     $recaptchaResponse = $_POST['g-recaptcha-response'];
 
     $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
@@ -48,14 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Page Title</title>
-    <!-- Add the reCAPTCHA script -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 
 <body>
 
     <form method="post" action="">
-        <div class="recaptcha" id="recaptcha-container" data-sitekey="your_recaptcha_site_key"></div>
+        <div class="recaptcha" id="recaptcha-container" data-sitekey="6LdGKBgpAAAAAMsydD7B6MPDVDHnFF66JP31kovI"></div>
 
         <!-- Your other form fields go here -->
 
