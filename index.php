@@ -42,7 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// reCAPTCHA verification passed
 		$isRecaptchaVerified = true;
 
-		// Your further processing logic goes here (e.g., database interactions)
 	} else {
 		// reCAPTCHA verification failed
 		$recaptchaError = 'reCAPTCHA verification failed. Please try again.';
@@ -145,11 +144,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 
 		.recaptcha-container {
-			margin-top: 25px;
+			margin-top: 5px;
 		}
 
 		center {
-			height: 390px;
+			height: 450px;
 		}
 	</style>
 
@@ -189,17 +188,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					<label>Password</label>
 				</div>
 
-				<br><br>
-
-				<input type="submit" name="Sign" id="Sign" value="Log In" class="submit">
 				<br>
 
-				<!-- Add reCAPTCHA container underneath the login button -->
+				<!-- reCAPTCHA container -->
 				<div class="recaptcha-container">
 					<div class="g-recaptcha" data-sitekey="6LdGKBgpAAAAAMsydD7B6MPDVDHnFF66JP31kovI"></div>
 				</div>
 
 				<br><br>
+
+				<input type="submit" name="Sign" id="Sign" value="Log In" class="submit">
 
 			</form>
 		</center>
