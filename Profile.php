@@ -56,6 +56,22 @@ $gender = $row['User_gender'];
 			font-weight: bold;
 		}
 
+		.passwordT {
+			text-align: left;
+			font-style: italic;
+			font-weight: bold;
+			margin-right: 20px;
+		}
+
+		.changePass {
+			display: flex;
+			align-items: center;
+		}
+
+		.changePass i:hover {
+			color: #666;
+		}
+
 		.wrap {
 			text-align: right;
 			margin-left: auto;
@@ -240,8 +256,7 @@ $gender = $row['User_gender'];
 				<br>
 
 				<div class="InputText">
-					<input type="text" class="disabled" name="User_position" id="User_position" required
-						value="<?PHP echo $position; ?>" disabled />
+					<input type="text" class="disabled" name="User_position" id="User_position" required value="<?PHP echo $position; ?>" disabled />
 					<label style="color:black;">Position</label>
 				</div>
 
@@ -249,15 +264,14 @@ $gender = $row['User_gender'];
 
 				<div class="InputText">
 					<input type="text" class="disabled" name="User_start" id="User_start" value="<?PHP $created = date('Y-m-d');
-					echo $created; ?>" disabled />
+																									echo $created; ?>" disabled />
 					<label style="color:black;">Account Created On</label>
 				</div>
 
 				<br>
 
 				<div class="InputText">
-					<input type="number" name="User_contact" id="User_contact" required
-						value="<?PHP echo $contact; ?>" />
+					<input type="number" name="User_contact" id="User_contact" required value="<?PHP echo $contact; ?>" />
 					<label>Contact</label>
 				</div>
 
@@ -273,7 +287,7 @@ $gender = $row['User_gender'];
 
 				<?PHP
 				if ($gender == null) {
-					?>
+				?>
 					<div class="option" style="text-align:left;">
 						<label>Gender</label>
 						<br>
@@ -283,9 +297,9 @@ $gender = $row['User_gender'];
 						<input class="checkbox-option" type="radio" name="User_gender" id="Female" value="Female" />
 						<label class="for-checkbox-option" for="Female">Female</label>
 					</div>
-					<?PHP
+				<?PHP
 				} else {
-					?>
+				?>
 					<div class="InputText" style="display:none;">
 						<input type="text" name="User_gender" id="User_gender" value="<?PHP echo $gender; ?>" />
 						<label>Gender</label>
@@ -295,7 +309,7 @@ $gender = $row['User_gender'];
 						<input type="text" class="disabled" value="<?PHP echo $gender; ?>" disabled />
 						<label style="color:black;">Gender</label>
 					</div>
-					<?PHP
+				<?PHP
 				}
 				?>
 
@@ -307,17 +321,34 @@ $gender = $row['User_gender'];
 				<br>
 
 				<div class="InputText">
-					<input type="text" class="disabled" name="User_ID" id="User_ID" value="<?PHP echo $ID; ?>"
-						disabled />
+					<input type="text" class="disabled" name="User_ID" id="User_ID" value="<?PHP echo $ID; ?>" disabled />
 					<label style="color:black;">ID</label>
 				</div>
 
 				<br>
 
-				<div class="InputText">
+				<div class="changePass">
+					<h4 class="passwordT">Change Password</h4>
 					<i class="far fa-eye" onclick="show()"></i>
-					<input type="password" name="User_pwd" id="User_pwd" value="<?PHP echo $password; ?>" required />
-					<label>Password</label>
+				</div>
+
+				<div class="InputText">
+					<input type="password" name="User_pwd" id="curr_pwd" required />
+					<label>Current Password</label>
+				</div>
+
+				<br>
+
+				<div class="InputText">
+					<input type="password" name="User_pwd" id="new_pwd" required />
+					<label>New Password</label>
+				</div>
+
+				<br>
+
+				<div class="InputText">
+					<input type="password" name="User_pwd" id="conf_pwd" required />
+					<label>Confirm Password</label>
 				</div>
 				<br><br>
 
@@ -328,11 +359,17 @@ $gender = $row['User_gender'];
 
 	<script>
 		function show() {
-			var x = document.getElementById("User_pwd");
-			if (x.type === "password") {
+			var x = document.getElementById("curr_pwd");
+			var y = document.getElementById("new_pwd");
+			var z = document.getElementById("conf_pwd");
+			if (x.type === "password" && y.type === "password" && z.type === "password") {
 				x.type = "text";
+				y.type = "text";
+				z.type = "text";
 			} else {
 				x.type = "password";
+				y.type = "password";
+				z.type = "password";
 			}
 		}
 
