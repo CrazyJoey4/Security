@@ -6,17 +6,17 @@ session_start();
 
 $object = new Connect();
 
-if (isset($_SESSION['User_ID'])) {
+if (isset($_POST['submit'])) {
 	$ID = $_SESSION['User_ID'];
 	$NAME = $_POST['User_name'];
 	$EMAIL = $_POST['User_email'];
-	$PASSWORD = $_POST['User_pwd'];
+	$PASSWORD = $_POST['New_pwd'];
 	$CONTACT = $_POST['User_contact'];
 	$BIRTHDAY = $_POST['User_birthday'];
 	$GENDER = $_POST['User_gender'];
 
 	// Validate input fields to avoid empty values
-	if (empty($NAME) || empty($EMAIL) || empty($PASSWORD) || empty($CONTACT) || empty($BIRTHDAY) || empty($GENDER)) {
+	if (empty($NAME) || empty($EMAIL) || empty($CONTACT) || empty($BIRTHDAY) || empty($GENDER)) {
 		$_SESSION['message'] = "<script>alert('Please fill in all fields.');</script>";
 		header("location:Profile.php?st=empty");
 		exit();
@@ -43,49 +43,65 @@ if (isset($_SESSION['User_ID'])) {
 		exit();
 	}
 
-	$HASHEDPWD = password_hash($PASSWORD, PASSWORD_DEFAULT);
+	if (!empty($PASSWORD)) {
+		// Hash the new password
+		$HASHEDPWD = password_hash($PASSWORD, PASSWORD_DEFAULT);
 
-	$query = "UPDATE `user_table` SET 
-			`User_name` = ?,
-			`User_email` = ?,
-			`User_pwd` = ?,
-			`User_contact` = ?,
-			`User_birthday` = ?,
-			`User_gender` = ?
-			WHERE User_ID = ?";
-	$statement = mysqli_prepare($connected, $query);
+		$query_update = "UPDATE `user_table` SET 
+								`User_name` = ?,
+								`User_email` = ?,
+								`User_pwd` = ?,
+								`User_contact` = ?,
+								`User_birthday` = ?,
+								`User_gender` = ?
+								WHERE User_ID = ?";
+		$statement_update = mysqli_prepare($connected, $query_update);
 
-	// Check if the prepared statement is successfully updated
-	if ($statement) {
-		// Check the number of affected rows after the update operation
-		mysqli_stmt_bind_param($statement, "sssssss", $NAME, $EMAIL, $HASHEDPWD, $CONTACT, $BIRTHDAY, $GENDER, $ID);
+		if ($statement_update) {
+			mysqli_stmt_bind_param($statement_update, "sssssss", $NAME, $EMAIL, $HASHEDPWD, $CONTACT, $BIRTHDAY, $GENDER, $ID);
 
-		// Execute the statement
-		if (mysqli_stmt_execute($statement)) {
-			$rowsAffected = mysqli_stmt_affected_rows($statement);
+			if (mysqli_stmt_execute($statement_update)) {
+				$_SESSION['message'] = "<script>alert('Profile updated!');</script>";
+				header("location:Profile.php?st=success");
+			} else {
+				// echo "Error executing the statement: " . mysqli_stmt_error($statement_update);
+				$_SESSION['message'] = "<script>alert('Profile update failed. Please try again.');</script>";
+				header("location:Profile.php?st=failure");
+			}
 
-			if ($rowsAffected > 0) {
+			mysqli_stmt_close($statement_update);
+		} else {
+			$_SESSION['message'] = "<script>alert('Profile update failed. Please try again.');</script>";
+			header("location:Profile.php?st=failure1");
+		}
+	} else {
+		$query_update = "UPDATE `user_table` SET 
+						`User_name` = ?,
+						`User_email` = ?,
+						`User_contact` = ?,
+						`User_birthday` = ?,
+						`User_gender` = ?
+						WHERE User_ID = ?";
+		$statement_update = mysqli_prepare($connected, $query_update);
+
+		if ($statement_update) {
+			mysqli_stmt_bind_param($statement_update, "ssssss", $NAME, $EMAIL, $CONTACT, $BIRTHDAY, $GENDER, $ID);
+
+			if (mysqli_stmt_execute($statement_update)) {
 				$_SESSION['message'] = "<script>alert('Profile updated!');</script>";
 				header("location:Profile.php?st=success");
 			} else {
 				$_SESSION['message'] = "<script>alert('Profile update failed. Please try again.');</script>";
 				header("location:Profile.php?st=failure");
 			}
-		} else {
-			// echo "Error executing the statement: " . mysqli_stmt_error($statement);
-			$_SESSION['message'] = "<script>alert('Profile update failed. Please try again.');</script>";
-			header("location:Profile.php?st=failure");
-		}
 
-		// Close the prepared statement
-		mysqli_stmt_close($statement);
-	} else {
-		// echo "Error in preparing the statement: " . mysqli_error($connected);
-		$_SESSION['message'] = "<script>alert('Profile update failed. Please try again.');</script>";
-		header("location:Profile.php?st=failure");
+			mysqli_stmt_close($statement_update);
+		} else {
+			$_SESSION['message'] = "<script>alert('Profile update failed. Please try again.');</script>";
+			header("location:Profile.php?st=failure4");
+		}
 	}
 } else {
 	$_SESSION['message'] = "<script>alert('Connection failed. Please try again.');</script>";
 	header("location:Profile.php?st=failure");
 }
-?>

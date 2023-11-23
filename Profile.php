@@ -331,24 +331,10 @@ $gender = $row['User_gender'];
 					<h4 class="passwordT">Change Password</h4>
 					<i class="far fa-eye" onclick="show()"></i>
 				</div>
-
+				
 				<div class="InputText">
-					<input type="password" name="User_pwd" id="curr_pwd" required />
-					<label>Current Password</label>
-				</div>
-
-				<br>
-
-				<div class="InputText">
-					<input type="password" name="User_pwd" id="new_pwd" required />
+					<input type="password" name="New_pwd" id="new_pwd" />
 					<label>New Password</label>
-				</div>
-
-				<br>
-
-				<div class="InputText">
-					<input type="password" name="User_pwd" id="conf_pwd" required />
-					<label>Confirm Password</label>
 				</div>
 				<br><br>
 
@@ -359,17 +345,12 @@ $gender = $row['User_gender'];
 
 	<script>
 		function show() {
-			var x = document.getElementById("curr_pwd");
-			var y = document.getElementById("new_pwd");
-			var z = document.getElementById("conf_pwd");
-			if (x.type === "password" && y.type === "password" && z.type === "password") {
+			var x = document.getElementById("new_pwd");
+
+			if (x.type === "password") {
 				x.type = "text";
-				y.type = "text";
-				z.type = "text";
 			} else {
 				x.type = "password";
-				y.type = "password";
-				z.type = "password";
 			}
 		}
 
