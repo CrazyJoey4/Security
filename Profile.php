@@ -331,8 +331,7 @@ $gender = $row['User_gender'];
 			var x = document.getElementById("User_pwd");
 			if (x.type === "password") {
 				x.type = "text";
-			}
-			else {
+			} else {
 				x.type = "password";
 			}
 		}
@@ -341,8 +340,7 @@ $gender = $row['User_gender'];
 			var agree = confirm("Are you sure your details are correct?");
 			if (agree) {
 				return true;
-			}
-			else {
+			} else {
 				return false;
 			}
 		}

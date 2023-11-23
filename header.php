@@ -163,7 +163,7 @@ $gender = $row['User_gender'];
 			}
 
 
-			echo "<li><a href = 'index.php' onClick=\"javascript:return confirm('Are you sure you want to logout ?');\"><i class='material-icons'>logout</i>  Log Out</a></li>";
+			echo "<li><a href='index.php?action=logout' onclick=\"javascript:return confirm('Are you sure you want to logout?');\"><i class='material-icons'>logout</i>  Log Out</a></li>";
 			?>
 
 

@@ -20,16 +20,27 @@ if (isset($_POST["Wait_ID"])) {
 		exit();
 	}
 
-	$query = "
-		INSERT INTO `waitlist_table`
-		(`Wait_ID`, `Cus_name`, `Cus_Pax`, `Cus_contact`, `Wait_time`) 
-		VALUES ('$WAIT_ID', '$CUS_name', '$CUS_pax', '$CUS_contact', '$CUS_time')";
+	$query = "INSERT INTO `waitlist_table`
+			(`Wait_ID`, `Cus_name`, `Cus_Pax`, `Cus_contact`, `Wait_time`) 
+			VALUES (?, ?, ?, ?, ?)";
+	$statement = mysqli_prepare($connected, $query);
 
-	if (mysqli_query($connected, $query)) {
-		header("location:Waitlist.php?st=success");
-		$_SESSION['message'] = "<script>alert('Added !');</script>";
+	if ($statement) {
+		mysqli_stmt_bind_param($statement, "ssdss", $WAIT_ID, $CUS_name, $CUS_pax, $CUS_contact, $CUS_time);
+
+		if (mysqli_stmt_execute($statement)) {
+			$_SESSION['message'] = "<script>alert('New waitlist added!');</script>";
+			header("location:Waitlist.php?st=success");
+		} else {
+			$_SESSION['message'] = "<script>alert('Add new waitlist failed. Please try again.');</script>";
+			header("location:Waitlist.php?st=failure");
+		}
+
+		// Close the prepared statement
+		mysqli_stmt_close($statement);
 	} else {
-		$_SESSION['message'] = "<script>alert('Failed. Try again.');</script>";
+		//echo "Error in preparing the statement: " . mysqli_error($connected);
+		$_SESSION['message'] = "<script>alert('Add new waitlist failed. Please try again.');</script>";
 		header("location:Waitlist.php?st=failure");
 	}
 } else {

@@ -14,7 +14,7 @@ if (mysqli_connect_errno()) {
 
 class Connect
 {
-	public $base_url = 'http://localhost:8080/Security';
+	public $base_url = 'http://localhost:8080/Security/';
 	public $connect;
 	public $query;
 	public $statement;
@@ -43,6 +43,11 @@ class Connect
 		}
 		return false;
 	}
+
+	function checkUserRole($userPosition, $allowedRoles)
+    {
+        return in_array($userPosition, $allowedRoles);
+    }
 
 	//DateTime format
 	function get_datetime()

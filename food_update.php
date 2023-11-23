@@ -42,7 +42,7 @@ if (isset($_POST['Food_ID'])) {
 			}
 		} else {
 			// echo "Error executing the statement: " . mysqli_stmt_error($statement);
-			$_SESSION['message'] = "<script>alert('Food menu update failed. Please Try again.');</script>";
+			$_SESSION['message'] = "<script>alert('Food menu update failed. Please try again.');</script>";
 			header("location:FoodMenu.php?st=failure");
 		}
 

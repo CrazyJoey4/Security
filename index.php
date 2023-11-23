@@ -2,8 +2,16 @@
 include("connect.php");
 
 session_start();
-
 $object = new Connect();
+
+// Check if the 'action' parameter is set to 'logout'
+if (isset($_GET['action']) && $_GET['action'] == 'logout') {
+    session_unset();
+    session_destroy();
+	header("location:" . $object->base_url . "index.php");
+    exit();
+}
+
 
 if (!$object->SettedUp()) {
 	header("location:" . $object->base_url . "RegisterForm.php");
