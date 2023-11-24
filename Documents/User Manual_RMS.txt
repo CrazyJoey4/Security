@@ -1,0 +1,29 @@
+User Manual: Restaurant Management System
+
+1. System Overview:
+The Restaurant Management System is a comprehensive solution designed to streamline various operations within 
+a restaurant. It encompasses staff management, tax management, payment processing, food order and category 
+management, food inventory control, table management, and waitlist management for available tables.
+
+2. System Requirements:
+Web server (XAMPP recommended)
+PHP 7.0 or later
+MySQL database (PHPMyAdmin for administration)
+Modern web browser (Chrome, Firefox, Safari)
+
+3. Installation Instructions:
+Download and install XAMPP from https://www.apachefriends.org/index.html.
+Launch XAMPP and start the Apache server and MySQL database.
+Download the Restaurant Management System files.
+Place the system files in the 'htdocs' folder within the XAMPP installation directory.
+Import the provided database file into PHPMyAdmin.
+
+4. System Access:
+Open your web browser and navigate to localhost web page.
+The login page will be displayed.
+Enter the provided username and password to access the system.
+
+5. Troubleshooting:
+If you encounter any issues, ensure that XAMPP services are running.
+Check the PHP and MySQL versions for compatibility.
+Verify the database import process.
