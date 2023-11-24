@@ -12,8 +12,8 @@ if (!$object->isLogin()) {
 $allowedRoles = ["Master"];
 
 if (!$object->checkUserRole($position, $allowedRoles)) {
-    header("Location: Dashboard.php");
-    exit();
+	header("Location: Dashboard.php");
+	exit();
 }
 ?>
 
@@ -388,12 +388,10 @@ if (!$object->checkUserRole($position, $allowedRoles)) {
 				<div class="option" style="text-align:left;">
 					<label>Position</label>
 					<br>
-					<input class="checkbox-option" type="radio" name="User_position" id="Waiter" value="Waiter"
-						required>
+					<input class="checkbox-option" type="radio" name="User_position" id="Waiter" value="Waiter">
 					<label class="for-checkbox-option" for="Waiter">Waiter</label>
 
-					<input class="checkbox-option" type="radio" name="User_position" id="Cashier" value="Cashier"
-						required>
+					<input class="checkbox-option" type="radio" name="User_position" id="Cashier" value="Cashier">
 					<label class="for-checkbox-option" for="Cashier">Cashier</label>
 				</div>
 
