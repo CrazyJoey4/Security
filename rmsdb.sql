@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 18, 2021 at 10:43 AM
+-- Generation Time: Nov 24, 2023 at 09:24 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -96,7 +96,17 @@ INSERT INTO `attendance_table` (`Att_ID`, `Staff_ID`, `LoginTime`) VALUES
 (56, 'EMP000', '2021-07-18 00:37:42'),
 (57, 'EMP003', '2021-07-18 00:38:08'),
 (58, 'EMP004', '2021-07-18 00:40:13'),
-(59, 'EMP000', '2021-07-18 00:44:40');
+(59, 'EMP000', '2021-07-18 00:44:40'),
+(60, 'EMP000', '2023-11-21 22:01:31'),
+(61, '', '2023-11-21 23:54:39'),
+(62, 'EMP000', '2023-11-22 00:12:34'),
+(63, 'EMP000', '2023-11-22 15:46:16'),
+(64, 'EMP000', '2023-11-22 15:46:42'),
+(65, 'EMP001', '2023-11-22 16:03:59'),
+(66, 'EMP000', '2023-11-22 16:07:52'),
+(67, 'EMP000', '2023-11-23 23:00:56'),
+(68, 'EMP000', '2023-11-23 23:32:39'),
+(69, 'EMP000', '2023-11-23 23:38:41');
 
 -- --------------------------------------------------------
 
@@ -116,10 +126,10 @@ CREATE TABLE `category_table` (
 
 INSERT INTO `category_table` (`ID`, `Category_name`, `Category_status`) VALUES
 (4, 'Noodles', 'Able'),
-(5, 'Rice', 'Able'),
-(10, 'Desert', 'Able'),
 (12, 'Side Dishes', 'Able'),
-(13, 'Beverage', 'Disable');
+(13, 'Beverage', 'Able'),
+(14, 'Rice', 'Able'),
+(15, 'Dessert', 'Able');
 
 -- --------------------------------------------------------
 
@@ -141,7 +151,8 @@ CREATE TABLE `menu_table` (
 
 INSERT INTO `menu_table` (`Food_ID`, `Food_name`, `Food_cost`, `Category_name`, `Food_status`) VALUES
 ('B001', 'Sprite', '3.00', 'Beverage', 'Available'),
-('B002', 'Green Tea', '3.20', 'Beverage', 'Available'),
+('B002', 'Green Tea', '1.50', 'Beverage', 'Available'),
+('B003', '100 Plus', '2.00', 'Beverage', 'Sold Out'),
 ('N001', 'Miso Ramen', '15.00', 'Noodles', 'Available'),
 ('R001', 'Chicken Katsu Don', '15.00', 'Rice', 'Available'),
 ('R002', 'Curry Rice', '7.50', 'Rice', 'Available'),
@@ -166,7 +177,10 @@ CREATE TABLE `order_table` (
 
 INSERT INTO `order_table` (`ID`, `Table_ID`, `Food_name`, `Food_quantity`) VALUES
 (55, 'T007', 'Chicken Katsu Don', 4),
-(56, 'T001', 'Miso Ramen', 5);
+(57, 'T001', 'Green Tea', 6),
+(58, 'T001', 'Miso Ramen', 6),
+(62, 'T001', 'Sprite', 2),
+(65, 'T003', 'Cawanmushi', 4);
 
 -- --------------------------------------------------------
 
@@ -207,7 +221,27 @@ INSERT INTO `payment_table` (`Pay_ID`, `Order_ID`, `Gross_pay`, `Tax_pay`, `Net_
 (13, 'P00013', '30.00', '4.80', '31.80', 'Card', '31.80', '2314231421341234', '2021-07-01', '02:22:08'),
 (14, 'P00014', '10.70', '1.71', '11.34', 'Card', '11.30', '7987987987987987', '2021-07-01', '02:23:55'),
 (15, 'P00015', '55.00', '8.80', '58.30', 'Cash', '58.30', '', '2021-07-02', '14:27:52'),
-(16, 'P00016', '6.00', '0.96', '6.36', 'Cash', '6.40', '', '2021-07-08', '09:26:33');
+(16, 'P00016', '6.00', '0.96', '6.36', 'Cash', '6.40', '', '2021-07-08', '09:26:33'),
+(17, 'P00017', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '17:38:17'),
+(18, 'P00018', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '17:48:24'),
+(19, 'P00019', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '17:48:25'),
+(20, 'P00020', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '17:48:26'),
+(21, 'P00021', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '17:48:26'),
+(22, 'P00022', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '17:48:26'),
+(23, 'P00023', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '17:48:26'),
+(24, 'P00024', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '17:48:26'),
+(25, 'P00025', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '17:48:31'),
+(26, 'P00026', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '18:01:09'),
+(27, 'P00027', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '18:05:22'),
+(28, 'P00028', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '18:05:23'),
+(29, 'P00029', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '18:05:24'),
+(30, 'P00030', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '18:05:24'),
+(31, 'P00031', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '18:05:24'),
+(32, 'P00032', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '18:05:24'),
+(33, 'P00033', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '18:05:24'),
+(34, 'P00034', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '18:05:25'),
+(35, 'P00035', '45.00', '7.20', '47.70', 'Card', '47.70', '2134006703310525', '2023-11-22', '18:05:49'),
+(36, 'P00036', '15.00', '2.40', '15.90', 'Cash', '15.90', NULL, '2023-11-22', '18:06:56');
 
 -- --------------------------------------------------------
 
@@ -250,14 +284,14 @@ CREATE TABLE `table_data` (
 --
 
 INSERT INTO `table_data` (`Table_ID`, `Capacity`, `Table_status`, `Live_status`) VALUES
-('T001', 2, 'Able', 'Seated'),
+('T001', 4, 'Able', 'Seated'),
 ('T002', 4, 'Able', 'Available'),
-('T003', 5, 'Able', 'Available'),
+('T003', 5, 'Able', 'Seated'),
 ('T004', 8, 'Able', 'Available'),
 ('T005', 8, 'Able', 'Available'),
 ('T006', 10, 'Disable', 'Available'),
 ('T007', 12, 'Able', 'Seated'),
-('T008', 14, 'Able', 'Available');
+('T008', 8, 'Able', 'Available');
 
 -- --------------------------------------------------------
 
@@ -303,11 +337,11 @@ CREATE TABLE `user_table` (
 --
 
 INSERT INTO `user_table` (`User_ID`, `User_name`, `User_email`, `User_pwd`, `User_position`, `User_start`, `User_contact`, `User_birthday`, `User_gender`) VALUES
-('EMP000', 'Joey Ooi', 'crazyjoeyooi@gmail.com', '123456', 'Master', '2021-06-19 04:56:01', '0126149023', '2001-04-19', 'Female'),
-('EMP001', 'Minatozaki Sana', 'sanachan@gmail.com', '123456', 'Waiter', '2021-06-16 21:54:56', '123456789', '1996-12-29', 'Female'),
-('EMP002', 'Chou Tzuyu', 'tzutzu99@gmail.com', '123456', 'Waiter', '2021-06-24 18:25:58', '879564213', '1999-04-14', 'Female'),
-('EMP003', 'Park Jihyo', 'jikyukyu@gmail.com', '123456', 'Cashier', '2021-06-25 04:14:00', '132456789', '1997-02-01', 'Female'),
-('EMP004', 'John', 'john@email.com', '123456', 'Waiter', '2021-06-25 05:04:40', '654987321', '1994-02-11', 'Male');
+('EMP000', 'Joey Ooi', 'crazyjoeyooi@gmail.com', '$2y$10$ZpFdp9iKfHKxybbCPcfO2.yglYp9br10JNlxwjHZ9QojU7QpwHq6q', 'Master', '2021-06-19 04:56:01', '0126149023', '2001-04-19', 'Female'),
+('EMP001', 'Minatozaki Sana', 'sanachan@gmail.com', '$2y$10$ZpFdp9iKfHKxybbCPcfO2.yglYp9br10JNlxwjHZ9QojU7QpwHq6q', 'Waiter', '2023-11-22 16:03:16', '0123456789', '1996-12-29', 'Female'),
+('EMP002', 'Chou Tzuyu', 'tzutzu99@gmail.com', '$2y$10$ZpFdp9iKfHKxybbCPcfO2.yglYp9br10JNlxwjHZ9QojU7QpwHq6q', 'Waiter', '2021-06-24 18:25:58', '879564213', '1999-04-14', 'Female'),
+('EMP003', 'Park Jihyo', 'jikyukyu@gmail.com', '$2y$10$ZpFdp9iKfHKxybbCPcfO2.yglYp9br10JNlxwjHZ9QojU7QpwHq6q', 'Cashier', '2021-06-25 04:14:00', '132456789', '1997-02-01', 'Female'),
+('EMP004', 'John', 'john@email.com', '$2y$10$ZpFdp9iKfHKxybbCPcfO2.yglYp9br10JNlxwjHZ9QojU7QpwHq6q', 'Cashier', '2021-06-25 05:04:40', '654987321', '1994-02-11', 'Male');
 
 -- --------------------------------------------------------
 
@@ -328,7 +362,9 @@ CREATE TABLE `waitlist_table` (
 --
 
 INSERT INTO `waitlist_table` (`Wait_ID`, `Cus_name`, `Cus_Pax`, `Cus_contact`, `Wait_time`) VALUES
-('C00002', 'Mr. K', 2, '11111111160', '2021-07-02 14:22:43');
+('C00002', 'Jane', 5, '0198765432', '2023-11-22 20:36:57'),
+('C00003', 'Brandon', 2, '0123789456', '2023-11-22 20:37:10'),
+('C00004', 'Jie Jie', 5, '0123456789', '2023-11-22 20:50:48');
 
 --
 -- Indexes for dumped tables
@@ -402,25 +438,25 @@ ALTER TABLE `waitlist_table`
 -- AUTO_INCREMENT for table `attendance_table`
 --
 ALTER TABLE `attendance_table`
-  MODIFY `Att_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `Att_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `category_table`
 --
 ALTER TABLE `category_table`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `order_table`
 --
 ALTER TABLE `order_table`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `payment_table`
 --
 ALTER TABLE `payment_table`
-  MODIFY `Pay_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `Pay_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `restaurant_master`
@@ -432,7 +468,7 @@ ALTER TABLE `restaurant_master`
 -- AUTO_INCREMENT for table `tax_table`
 --
 ALTER TABLE `tax_table`
-  MODIFY `Tax_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Tax_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
