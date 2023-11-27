@@ -336,6 +336,14 @@ $gender = $row['User_gender'];
 					<input type="password" name="New_pwd" id="new_pwd" />
 					<label>New Password</label>
 				</div>
+
+				<br>
+
+				<div class="InputText">
+					<input type="password" name="confirm_pwd" id="confirm_pwd" />
+					<label>Confirm Password</label>
+				</div>
+				
 				<br><br>
 
 				<input type="submit" class="submit" name="submit" value="Update" onClick="return confirmSubmit()">

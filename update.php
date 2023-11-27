@@ -11,6 +11,7 @@ if (isset($_POST['submit'])) {
 	$NAME = $_POST['User_name'];
 	$EMAIL = $_POST['User_email'];
 	$PASSWORD = $_POST['New_pwd'];
+	$confirmPASSWORD = $_POST['confirm_pwd'];
 	$CONTACT = $_POST['User_contact'];
 	$BIRTHDAY = $_POST['User_birthday'];
 	$GENDER = $_POST['User_gender'];
@@ -44,6 +45,12 @@ if (isset($_POST['submit'])) {
 	}
 
 	if (!empty($PASSWORD)) {
+		if ($confirmPASSWORD != $PASSWORD) {
+			$_SESSION['message'] = "<script>alert('Invalid password. The confirm password should be same with the new password.');</script>";
+			header("location:Profile.php?st=invalid_password");
+			exit();
+		}
+
 		// Password validation
 		$uppercase = preg_match('@[A-Z]@', $PASSWORD);
 		$lowercase = preg_match('@[a-z]@', $PASSWORD);
