@@ -44,6 +44,18 @@ if (isset($_POST['submit'])) {
 	}
 
 	if (!empty($PASSWORD)) {
+		// Password validation
+		$uppercase = preg_match('@[A-Z]@', $PASSWORD);
+		$lowercase = preg_match('@[a-z]@', $PASSWORD);
+		$number = preg_match('@[0-9]@', $PASSWORD);
+		$specialChars = preg_match('@[^\w]@', $PASSWORD);
+
+		if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($PASSWORD) < 8) {
+			$_SESSION['message'] = "<script>alert('Invalid password. It should be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.');</script>";
+			header("location:Profile.php?st=invalid_password");
+			exit();
+		}
+
 		// Hash the new password
 		$HASHEDPWD = password_hash($PASSWORD, PASSWORD_DEFAULT);
 
